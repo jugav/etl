@@ -17,6 +17,7 @@ public class ETL
     protected static String REDSHIFT_URL;
     protected static String AWS_USERNAME;
     protected static String AWS_PASSWORD;
+    protected static String S3_BUCKET;
     public static void main(String[] args) throws IOException{
     	ETL etl = new ETL();
     	etl.init();
@@ -67,6 +68,7 @@ public class ETL
         REDSHIFT_URL = mainProperties.getProperty("etl.aws.db_url");
         AWS_USERNAME = mainProperties.getProperty("etl.aws.username");
         AWS_PASSWORD = mainProperties.getProperty("etl.aws.password");
+        S3_BUCKET = mainProperties.getProperty("etl.aws.s3_bucket");
     }
 
 }

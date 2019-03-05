@@ -53,7 +53,7 @@ public class S3ToRedshift {
                                 "    UPCCode VARCHAR(100)\n" +
                                 ");";
                                 
-                                sql2="copy "+filename+" from 's3://etldata2019/"+filename+"'"+command;
+                                sql2="copy "+filename+" from 's3://"+ETL.S3_BUCKET+"/"+filename+"'"+command;
                             }
                             if(filename.contains("Ticket"))
                             {
@@ -67,7 +67,7 @@ public class S3ToRedshift {
                                 "TotalWeight DOUBLE PRECISION\n" +
                                 ");";
                                 
-                                sql2="copy "+filename+" from 's3://etldata2019/"+filename+"' "+command;
+                                sql2="copy "+filename+" from 's3://"+ETL.S3_BUCKET+"/"+filename+"' "+command;
                             }
                             if(filename.contains("Transaction"))
                             {
@@ -86,7 +86,7 @@ public class S3ToRedshift {
                                 "      OperatorName VARCHAR(100)\n" +
                                 ");";
                                 
-                                sql2="copy "+filename+" (RTransactionNumber, TTransactionNumber, InvoiceNumber, CustomerID, CustomerName , TransactionMode ,TransactionStartDate ,TransactionEndDate, TerminalCode ,TerminalStoreCode ,OperatorNumber , OperatorName ) from 's3://etldata2019/"+filename+"' DATEFORMAT AS 'YYYY-MM-DD' "+command;
+                                sql2="copy "+filename+" (RTransactionNumber, TTransactionNumber, InvoiceNumber, CustomerID, CustomerName , TransactionMode ,TransactionStartDate ,TransactionEndDate, TerminalCode ,TerminalStoreCode ,OperatorNumber , OperatorName ) from 's3://"+ETL.S3_BUCKET+"/"+filename+"' DATEFORMAT AS 'YYYY-MM-DD' "+command;
                                 
                             }
 
