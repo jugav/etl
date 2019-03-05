@@ -1,0 +1,69 @@
+package com.aws.ETL;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+public class ExcelToCSV {
+	public static String[] convertToCSV(String xlsxFile,String filename, String csvoutput, String Outputpath) throws InvalidFormatException, IOException {
+
+		//Workbook wb = new XSSFWorkbook(new File(xlsxFile));
+		Workbook wb = WorkbookFactory.create(new File(xlsxFile));
+		DataFormatter formatter = new DataFormatter();
+		//PrintStream out ;
+                PrintStream out2 ;
+		String file[] = new String[wb.getNumberOfSheets()];
+		int i = 0;
+                
+                File file3 = new File(csvoutput+"\\csv");
+                if (!file3.exists()) {
+                    if (file3.mkdir()) {
+                        System.out.println("csv Directory is created!");
+                    } else {
+                        System.out.println("csv Failed to create directory!");
+                    }
+                }
+                
+                File file2 = new File(Outputpath+"\\csv");
+                if (!file2.exists()) {
+                    if (file2.mkdir()) {
+                        System.out.println("csv Directory is created!");
+                    } else {
+                        System.out.println("csv Failed to create directory!");
+                    }
+                }
+                                    
+		for (Sheet sheet : wb) {
+			//out = new PrintStream(new FileOutputStream(csvoutput + "\\csv\\"+filename+sheet.getSheetName()+".csv"),
+	                //true, "UTF-8");
+                        out2 = new PrintStream(new FileOutputStream(Outputpath +"\\csv\\"+filename+sheet.getSheetName()+".csv"),
+	                true, "UTF-8");
+			file[i] = Outputpath + "\\csv\\"+filename+sheet.getSheetName()+".csv";
+			for (Row row : sheet) {
+				boolean firstCell = true;
+				for (Cell cell : row) {
+					if ( ! firstCell )out2.print(','); 
+                                        //out.print(',');
+                                        
+					String text = formatter.formatCellValue(cell);
+					//out.print(text);
+                                        out2.print(text);
+					firstCell = false;
+				}
+				//out.println();
+                                out2.println();
+			}
+			i++;
+		}
+		return file;
+	}
+}

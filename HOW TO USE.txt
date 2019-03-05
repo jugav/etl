@@ -1,0 +1,4 @@
+- add both the folders - "datafiles" - output folder and "Multiple Stores" - input folder besides the jar and run 
+java -jar ETL-0.1jar
+
+- it should run 
