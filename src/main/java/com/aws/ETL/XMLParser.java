@@ -28,17 +28,14 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.amazonaws.services.codecommit.model.FileNameConflictsWithDirectoryNameException;
-
 
 public class XMLParser 
 {
     //Delimiter used in CSV file
-    private static final String COMMA_DELIMITER = ",";
-    private static final String NEW_LINE_SEPARATOR = "\n";
-    private static final String ORDER_FILE_HEADER = "Transaction Number, Active Price, Active Price Description, Department Code, Sub Department Code, Total Amount Paid, Total Units, Product Name, UPC Code";
-    private static final String TRS_FILEHEADER = "Transaction Number for R, Transaction Number for T, InvoiceNumber, CustomerID, CustomerName, TransactionMode, TransactionStartDate, TransactionEndDate, TerminalCode, TerminalStoreCode, OperatorNumber, OperatorName";
-    private static final String T_FILEHEADER = "Transaction Number, Totalizer Code, Ticket Concept, Total Amount, Total Unit, Total Weight";
+    private static final String DELIMITER = ";";
+    private static final String ORDER_FILE_HEADER = "Transaction Number; Active Price; Active Price Description; Department Code; Sub Department Code; Total Amount Paid; Total Units; Product Name, UPC Code";
+    private static final String TRS_FILEHEADER = "Transaction Number for R; Transaction Number for T; InvoiceNumber; CustomerID; CustomerName; TransactionMode; TransactionStartDate; TransactionEndDate; TerminalCode; TerminalStoreCode; OperatorNumber; OperatorName";
+    private static final String T_FILEHEADER = "Transaction Number; Totalizer Code; Ticket Concept; Total Amount; Total Unit; Total Weight";
     static List<TRS> trsList;
     
     public static String parseXML(String INPUT_PATH, String OUTPUT_PATH) {
@@ -117,7 +114,7 @@ public class XMLParser
                                   //sheet TRS
                                     Row row2 = sheet.createRow(0); 
                                     int ff2=0;
-                                    String[] split2 = TRS_FILEHEADER.split(",");
+                                    String[] split2 = TRS_FILEHEADER.split(DELIMITER);
                                     for (int i = 0; i < split2.length; i++) {
                                         row2.createCell(i).setCellValue(split2[i]);
                                         ff2++;
@@ -193,7 +190,7 @@ public class XMLParser
                                     //sheet R
                                     Row row1 = my_sheet1.createRow(0); 
                                     int ff1=0;
-                                    String[] split1 = ORDER_FILE_HEADER.split(",");
+                                    String[] split1 = ORDER_FILE_HEADER.split(DELIMITER);
                                     for (int i = 0; i < split1.length; i++) {
                                         row1.createCell(i).setCellValue(split1[i]);
                                         ff1++;
@@ -227,7 +224,7 @@ public class XMLParser
                                     //sheet T
                                     Row row0 = my_sheet.createRow(0); 
                                     int ff=0;
-                                    String[] split = T_FILEHEADER.split(",");
+                                    String[] split = T_FILEHEADER.split(DELIMITER);
                                     for (int i = 0; i < split.length; i++) {
                                         row0.createCell(i).setCellValue(split[i]);
                                         ff++;
@@ -277,7 +274,7 @@ public class XMLParser
 	           
 	            trs.setTransactionNumber(Integer.parseInt(getAttributeValue("F1032", element)));
 	            trs.setCustomerID(getAttributeValue("F1148", element));
-	            trs.setCustomerName(getAttributeValue("F1155", element).replace(',', ';'));
+	            trs.setCustomerName(getAttributeValue("F1155", element));
                     trs.setInvoiceNumber(getAttributeValue("F1764", element));
                     trs.setOperatorName(getAttributeValue("F1127", element));
 	            trs.setOperatorNumber(Integer.parseInt(getAttributeValue("F1126", element)));
@@ -406,7 +403,7 @@ public class XMLParser
 			
 		}
 		
-		i.setProductName(getAttributeValue("F02", element).replace(',', ';'));
+		i.setProductName(getAttributeValue("F02", element));
 		try {
 			i.setSubDepartmentCode(Integer.parseInt(getAttributeValue("F04", element)));
 		} catch( NumberFormatException e) {

@@ -43,23 +43,17 @@ public class ExcelToCSV {
                 }
                                     
 		for (Sheet sheet : wb) {
-			//out = new PrintStream(new FileOutputStream(csvoutput + "\\csv\\"+filename+sheet.getSheetName()+".csv"),
-	                //true, "UTF-8");
-                        out2 = new PrintStream(new FileOutputStream(Outputpath +"\\csv\\"+filename+sheet.getSheetName()+".csv"),
+			out2 = new PrintStream(new FileOutputStream(Outputpath +"\\csv\\"+filename+sheet.getSheetName()+".csv"),
 	                true, "UTF-8");
 			file[i] = Outputpath + "\\csv\\"+filename+sheet.getSheetName()+".csv";
 			for (Row row : sheet) {
 				boolean firstCell = true;
 				for (Cell cell : row) {
-					if ( ! firstCell )out2.print(','); 
-                                        //out.print(',');
-                                        
-					String text = formatter.formatCellValue(cell);
-					//out.print(text);
-                                        out2.print(text);
-					firstCell = false;
+					if ( ! firstCell )out2.print(';'); 
+                          String text = formatter.formatCellValue(cell);
+					      out2.print(text);
+					      firstCell = false;
 				}
-				//out.println();
                                 out2.println();
 			}
 			i++;

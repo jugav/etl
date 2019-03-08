@@ -30,7 +30,7 @@ public class S3ToRedshift {
                String sql="";
                String sql2="";
 	             
-	           String command = " CREDENTIALS     'aws_access_key_id="+ ETL.AWS_ACCESS_KEY_ID +";aws_secret_access_key="+ ETL.AWS_SECRET_KEY +"' IGNOREHEADER AS 1 ESCAPE ACCEPTINVCHARS DELIMITER ',' FILLRECORD REGION 'us-east-2';";
+	           String command = " CREDENTIALS     'aws_access_key_id="+ ETL.AWS_ACCESS_KEY_ID +";aws_secret_access_key="+ ETL.AWS_SECRET_KEY +"' IGNOREHEADER AS 1 ESCAPE ACCEPTINVCHARS DELIMITER ';' FILLRECORD REGION 'us-east-2';";
 	           
                File dir = new File(Outputpath+"\\csv\\");
                File[] directoryListing = dir.listFiles();
