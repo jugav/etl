@@ -32,10 +32,10 @@ import org.w3c.dom.NodeList;
 public class XMLParser 
 {
     //Delimiter used in CSV file
-    private static final String DELIMITER = ";";
-    private static final String ORDER_FILE_HEADER = "Transaction Number; Active Price; Active Price Description; Department Code; Sub Department Code; Total Amount Paid; Total Units; Product Name, UPC Code";
-    private static final String TRS_FILEHEADER = "Transaction Number for R; Transaction Number for T; InvoiceNumber; CustomerID; CustomerName; TransactionMode; TransactionStartDate; TransactionEndDate; TerminalCode; TerminalStoreCode; OperatorNumber; OperatorName";
-    private static final String T_FILEHEADER = "Transaction Number; Totalizer Code; Ticket Concept; Total Amount; Total Unit; Total Weight";
+    private static final String DELIMITER = ",";
+    private static final String ORDER_FILE_HEADER = "Transaction Number, Active Price, Active Price Description, Department Code, Sub Department Code, Total Amount Paid, Total Units, Product Name, UPC Code";
+    private static final String TRS_FILEHEADER = "Transaction Number for R, Transaction Number for T, InvoiceNumber, CustomerID, CustomerName, TransactionMode, TransactionStartDate, TransactionEndDate, TerminalCode, TerminalStoreCode, OperatorNumber, OperatorName";
+    private static final String T_FILEHEADER = "Transaction Number, Totalizer Code, Ticket Concept, Total Amount, Total Unit, Total Weight";
     static List<TRS> trsList;
     
     public static String parseXML(String INPUT_PATH, String OUTPUT_PATH) {
@@ -254,7 +254,7 @@ public class XMLParser
                                     workbook.write(fileOut);
                                     fileOut.close();
                                     
-                                    String files[] = ExcelToCSV.convertToCSV(csvfilepath,filename2.replaceAll(" ", "_").toLowerCase()+"_", csvoutput, OUTPUT_PATH);
+                                    ExcelToCSV.convertToCSV(csvfilepath,filename2.replaceAll(" ", "_").toLowerCase()+"_", csvoutput, OUTPUT_PATH);
                     	  }
                     	  catch(Exception e) {
                   			e.printStackTrace();
