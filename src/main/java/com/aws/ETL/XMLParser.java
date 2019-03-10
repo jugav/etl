@@ -180,6 +180,8 @@ public class XMLParser
                                         row.createCell(8).setCellValue(trs.getTerminalCode());
                                         if(trs.getTerminalStoreCode() != null) {
                                             row.createCell(9).setCellValue(Integer.parseInt(trs.getTerminalStoreCode()));
+                                        } else {
+                                        	row.createCell(9).setCellValue("");
                                         }
                                         row.createCell(10).setCellValue(trs.getOperatorNumber());
                                         row.createCell(11).setCellValue(String.valueOf(trs.getOperatorName()));
@@ -241,10 +243,14 @@ public class XMLParser
                                              row.createCell(3).setCellValue(new Double(trs.getT()[i].get_total_dollars()));
                                              if(trs.getT()[i].get_total_units() != null) {
                                                  row.createCell(4).setCellValue(new Double(trs.getT()[i].get_total_units()));
+                                             }else {
+                                            	 row.createCell(4).setCellValue("");
                                              }
                                      
                                              if(trs.getT()[i].get_total_weight() != null) {
                                             	 row.createCell(5).setCellValue(new Double(trs.getT()[i].get_total_weight()));
+                                             } else {
+                                            	 row.createCell(5).setCellValue("");
                                              }
                                              g++;
                                     	 }
@@ -272,13 +278,19 @@ public class XMLParser
 		if (node.getNodeType() == Node.ELEMENT_NODE) {
 	            Node element = node;
 	           
-	            trs.setTransactionNumber(Integer.parseInt(getAttributeValue("F1032", element)));
+	            if (getAttributeValue("F1032", element) != "" ) {
+	            	trs.setTransactionNumber(Integer.parseInt(getAttributeValue("F1032", element)));
+	            }
 	            trs.setCustomerID(getAttributeValue("F1148", element));
 	            trs.setCustomerName(getAttributeValue("F1155", element));
                     trs.setInvoiceNumber(getAttributeValue("F1764", element));
                     trs.setOperatorName(getAttributeValue("F1127", element));
-	            trs.setOperatorNumber(Integer.parseInt(getAttributeValue("F1126", element)));
-	            trs.setTerminalCode(Integer.parseInt(getAttributeValue("F1057", element)));
+                if (getAttributeValue("F1126", element) != "" ) {
+                	trs.setOperatorNumber(Integer.parseInt(getAttributeValue("F1126", element)));
+                }
+                if (getAttributeValue("F1057", element) != "" ) {
+                	trs.setTerminalCode(Integer.parseInt(getAttributeValue("F1057", element)));
+                }
 	            trs.setTerminalStoreCode(getAttributeValue("F1056", element));
 	            trs.setTransactionEndDate(getAttributeValue("F254", element));
 	            trs.setTransactionStartDate(getAttributeValue("F253", element));
@@ -396,24 +408,16 @@ public class XMLParser
 		i.setActivePrice(getAttributeValue("F1007", element));
 		i.setActivePriceDescription(getAttributeValue("F113", element));
 		
-		try{
-			
+		if(getAttributeValue("F03", element)!= "") {
 			i.setDepartmentCode(Integer.parseInt(getAttributeValue("F03", element)));
-		} catch( NumberFormatException e) {
-			
 		}
 		
 		i.setProductName(getAttributeValue("F02", element));
-		try {
+		if(getAttributeValue("F04", element)!= "") {
 			i.setSubDepartmentCode(Integer.parseInt(getAttributeValue("F04", element)));
-		} catch( NumberFormatException e) {
-		
-		}
-		//i.setTotalAmountPaid(Float.parseFloat(getAttributeValue("", element)));
-		try {
+		} 
+		if(getAttributeValue("F1006", element) != "") {
 			i.setTotalUnits(Integer.parseInt(getAttributeValue("F1006", element)));
-		
-		} catch( NumberFormatException e) {
 		
 		}
 		i.setUPCCode(getAttributeValue("F01", element));

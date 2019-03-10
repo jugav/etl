@@ -54,6 +54,7 @@ public class ExcelToCSV {
 					      out2.print(text);
 					      firstCell = false;
 				}
+				out2.print(';'); 
                                 out2.println();
 			}
 			i++;
