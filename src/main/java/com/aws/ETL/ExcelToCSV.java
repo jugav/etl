@@ -1,9 +1,8 @@
 package com.aws.ETL;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -13,12 +12,16 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-public class ExcelToCSV {
-	public static String[] convertToCSV(String xlsxFile,String filename, String csvoutput, String Outputpath) throws InvalidFormatException, IOException {
+import com.opencsv.CSVWriter;
 
-		//Workbook wb = new XSSFWorkbook(new File(xlsxFile));
+public class ExcelToCSV {
+	private static final char COMMA_DELIMITER = ';';
+	public static void convertToCSV(String xlsxFile,String filename, String csvoutput, String Outputpath) throws InvalidFormatException, IOException {
+
 		Workbook wb = WorkbookFactory.create(new File(xlsxFile));
+
 		DataFormatter formatter = new DataFormatter();
+
 		//PrintStream out ;
                 PrintStream out2 ;
 		String file[] = new String[wb.getNumberOfSheets()];
@@ -61,4 +64,5 @@ public class ExcelToCSV {
 		}
 		return file;
 	}
+	
 }
