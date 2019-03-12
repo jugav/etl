@@ -282,7 +282,7 @@ public class XMLParser
 	            	trs.setTransactionNumber(Integer.parseInt(getAttributeValue("F1032", element)));
 	            }
 	            trs.setCustomerID(getAttributeValue("F1148", element));
-	            trs.setCustomerName(getAttributeValue("F1155", element));
+	            trs.setCustomerName(getAttributeValue("F1155", element).replace(';', ' '));
                     trs.setInvoiceNumber(getAttributeValue("F1764", element));
                     trs.setOperatorName(getAttributeValue("F1127", element));
                 if (getAttributeValue("F1126", element) != "" ) {
